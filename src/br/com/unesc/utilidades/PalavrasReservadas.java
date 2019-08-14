@@ -6,23 +6,37 @@
 package br.com.unesc.utilidades;
 
 import java.util.HashMap;
-import java.util.Map;
+
 /**
  *
  * @author Luiz Henrique
  */
-public class PalavrasReservadas extends HashMap<Integer,String>{
-    
-    public Integer getCodigo(String value){
+public class PalavrasReservadas extends HashMap<Integer, String> {
+
+    public Integer getCodigo(String value) {
         int retorno = 25;
-        if(this.containsValue(value))
+        
+        if(isInteger(value)) return 26;
+        
+        if (this.containsValue(value)) {
             retorno = this.entrySet()
                     .stream()
-                    .filter(v->v.getValue().equals(value))
+                    .filter(v -> v.getValue().equals(value))
                     .findFirst()
                     .get()
                     .getKey();
+        }
         return retorno;
     }
-    
+
+    private Boolean isInteger(String value) {
+        Boolean isInteger = false;
+        int valor = 0;
+        try {
+            valor = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            System.out.println("Valor não é inteiro");
+        }
+        return valor != 0;
+    }
 }
