@@ -17,7 +17,7 @@ public class IDE extends javax.swing.JFrame {
     public IDE() {
         initComponents();
         Compilador compilador = new Compilador();
-        compilador.Compila();
+        compilador.Compilar();
     }
 
     /**

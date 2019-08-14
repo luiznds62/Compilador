@@ -14,6 +14,10 @@ public class Token {
     private Integer codigo;
     private String palavra;
 
+    public Token() {
+
+    }
+
     public Token(Integer codigo, String palavra) {
         this.codigo = codigo;
         this.palavra = palavra;
