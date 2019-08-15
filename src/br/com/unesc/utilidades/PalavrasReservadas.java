@@ -30,12 +30,19 @@ public class PalavrasReservadas extends HashMap<Integer, String> {
     }
 
     private Boolean isInteger(String value) {
+        if(value.equals("0")){
+            return true;
+        }
+        
         Boolean isInteger = false;
         int valor = 0;
         try {
             valor = Integer.parseInt(value);
+            if(valor > 32767 || valor < -32767){
+                return false;
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Valor não é inteiro");
+           
         }
         return valor != 0;
     }

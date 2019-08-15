@@ -28,7 +28,9 @@ public class Classificador {
 
     public Stack<Token> classificar(List<String> arquivo) {
         arquivo.forEach((linha) -> {
-            if(linha.equals("\t")) return;
+            if (linha.equals("\t")) {
+                return;
+            }
             tokenizarLinha(linha);
         });
         return this.tokens;
@@ -59,24 +61,48 @@ public class Classificador {
                 }
             }
 
-            if (isDelimitador((char) pilha.get(i))) {
+            if (isDelimitador((char) pilha.get(i)) || isDelimitador((char) palavra.charAt(0))) {
                 if (palavra.length() != 0 && !pilha.get(i).equals('_')) {
                     classificaPalavra(palavra.toString());
                     palavra = new StringBuilder();
                 }
-                
-                while(pilha.get(i).equals('\t')){
+
+                while (pilha.get(i).equals('\t') && (i != pilha.size() - 1)) {
                     i++;
                 }
                 
-                if (pilha.get(i).equals(' ') && (i != pilha.size() -1)) {
+                if (pilha.get(i).equals('\t') && (i == pilha.size() - 1)) {
+                    return;
+                }
+
+                if (pilha.get(i).equals(' ') && (i != pilha.size() - 1)) {
                     i++;
                 }
             }
 
+            if (pilha.get(i).equals('(')) {
+                if (pilha.get(i + 1).equals('*')) {
+                    i++;
+                    i++;
+                    while (!pilha.get(i).equals('*')) {
+                        i++;
+                    }
+                    i++;
+                    if (pilha.get(i).equals(')') && (i != pilha.size() - 1)) {
+                        i++;
+                    }
+                    if (i == pilha.size() - 1) {
+                        return;
+                    }
+                }
+            }
+
             palavra.append(pilha.get(i));
-            if(i == pilha.size() -1){
-                if(!palavra.toString().equals("")) return;
+
+            if (i == pilha.size() - 1) {
+                if (palavra.toString().equals("")) {
+                    return;
+                }
                 classificaPalavra(palavra.toString());
                 palavra = new StringBuilder();
             }
