@@ -27,12 +27,26 @@ public class Classificador {
     }
 
     public Stack<Token> classificar(List<String> arquivo) {
-        arquivo.forEach((linha) -> {
-            if (linha.equals("\t")) {
-                return;
+        Boolean isComentario = false;
+        for (int i = 0; i < arquivo.size(); i++) {
+            if (arquivo.get(i).startsWith("(*")) {
+                arquivo.set(i, arquivo.get(i).replaceAll("\\s+", " "));
             }
-            tokenizarLinha(linha);
-        });
+            if (arquivo.get(i).equals("(* ") && arquivo.get(i).length() == 3) {
+                isComentario = true;
+            }
+
+            while (isComentario) {
+                i++;
+                arquivo.set(i, arquivo.get(i).replaceAll("\\s+", " "));
+                if (arquivo.get(i).startsWith("*)") && arquivo.get(i).length() == 3) {
+                    isComentario = false;
+                    i++;
+                }
+            }
+
+            tokenizarLinha(arquivo.get(i));
+        }
         return this.tokens;
     }
 
@@ -61,7 +75,7 @@ public class Classificador {
                 }
             }
 
-            if (isDelimitador((char) pilha.get(i)) || isDelimitador((char) palavra.charAt(0))) {
+            if (isDelimitador((char) pilha.get(i)) || palavra.length() != 0 && isDelimitador((char) palavra.charAt(0))) {
                 if (palavra.length() != 0 && !pilha.get(i).equals('_')) {
                     classificaPalavra(palavra.toString());
                     palavra = new StringBuilder();
@@ -70,7 +84,7 @@ public class Classificador {
                 while (pilha.get(i).equals('\t') && (i != pilha.size() - 1)) {
                     i++;
                 }
-                
+
                 if (pilha.get(i).equals('\t') && (i == pilha.size() - 1)) {
                     return;
                 }
@@ -112,8 +126,16 @@ public class Classificador {
     private Boolean isDelimitador(char token) {
         return this.delimitadores.contains(String.valueOf(token));
     }
+    
+    private Boolean isPalavraReservada(String palavra){
+        return this.palavrasReservadas.containsValue(palavra.toUpperCase());
+    }
 
     private void classificaPalavra(String palavra) {
+        if(isPalavraReservada(palavra)){
+            palavra = palavra.toUpperCase();
+        }
+        
         Token newToken = new Token();
         newToken.setCodigo(this.palavrasReservadas.getCodigo(palavra));
         newToken.setPalavra(palavra);
