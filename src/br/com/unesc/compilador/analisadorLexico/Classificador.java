@@ -61,7 +61,6 @@ public class Classificador {
     private void desenpilharPalavras(Stack pilha) {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
-            // Verificação de comentários
             if (pilha.get(i).equals('(')) {
                 if (pilha.get(i + 1).equals('*')) {
                     i++;
@@ -132,6 +131,10 @@ public class Classificador {
     }
 
     private void classificaPalavra(String palavra) {
+        if(palavra.equals(" ")){
+            return;
+        }
+        
         if(isPalavraReservada(palavra)){
             palavra = palavra.toUpperCase();
         }

@@ -24,8 +24,7 @@ public class Compilador {
     Classificador classificador = new Classificador();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 
-    void Compilar() {
-        String path = "D:\\compiladores\\codigo1.txt";
+    void Compilar(String path) {
         List<String> arquivo = leArquivo(path);
         Stack<Token> pilhaTokens = mandaClassificar(arquivo);
         
