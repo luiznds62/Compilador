@@ -16,6 +16,7 @@ import java.util.Stack;
  */
 public class Classificador {
 
+    Boolean isComentario = false;
     PalavrasReservadas palavrasReservadas;
     List<String> delimitadores;
     Stack<Token> tokens;
@@ -27,26 +28,10 @@ public class Classificador {
     }
 
     public Stack<Token> classificar(List<String> arquivo) {
-        Boolean isComentario = false;
-        for (int i = 0; i < arquivo.size(); i++) {
-            if (arquivo.get(i).startsWith("(*")) {
-                arquivo.set(i, arquivo.get(i).replaceAll("\\s+", " "));
-            }
-            if (arquivo.get(i).equals("(* ") && arquivo.get(i).length() == 3) {
-                isComentario = true;
-            }
+        arquivo.forEach((linha) -> {
+            tokenizarLinha(linha);
+        });
 
-            while (isComentario) {
-                i++;
-                arquivo.set(i, arquivo.get(i).replaceAll("\\s+", " "));
-                if (arquivo.get(i).startsWith("*)") && arquivo.get(i).length() == 3) {
-                    isComentario = false;
-                    i++;
-                }
-            }
-
-            tokenizarLinha(arquivo.get(i));
-        }
         return this.tokens;
     }
 
@@ -63,14 +48,22 @@ public class Classificador {
         for (int i = 0; i < pilha.size(); i++) {
             if (pilha.get(i).equals('(')) {
                 if (pilha.get(i + 1).equals('*')) {
+                    this.isComentario = true;
                     i++;
+                }
+            }
+
+            while (this.isComentario) {
+                if (i == pilha.size() - 1) {
+                    return;
+                }
+
+                if (pilha.get(i).equals('*') && pilha.get(i + 1).equals(')')) {
+                    this.isComentario = false;
+                    i = i +2;
+                }
+                if(this.isComentario){
                     i++;
-                    while (!pilha.get(i).equals(')')) {
-                        i++;
-                    }
-                    if (pilha.get(i).equals(')')) {
-                        i++;
-                    }
                 }
             }
 
@@ -95,6 +88,7 @@ public class Classificador {
 
             if (pilha.get(i).equals('(')) {
                 if (pilha.get(i + 1).equals('*')) {
+
                     i++;
                     i++;
                     while (!pilha.get(i).equals('*')) {
@@ -125,20 +119,20 @@ public class Classificador {
     private Boolean isDelimitador(char token) {
         return this.delimitadores.contains(String.valueOf(token));
     }
-    
-    private Boolean isPalavraReservada(String palavra){
+
+    private Boolean isPalavraReservada(String palavra) {
         return this.palavrasReservadas.containsValue(palavra.toUpperCase());
     }
 
     private void classificaPalavra(String palavra) {
-        if(palavra.equals(" ")){
+        if (palavra.equals(" ")) {
             return;
         }
-        
-        if(isPalavraReservada(palavra)){
+
+        if (isPalavraReservada(palavra)) {
             palavra = palavra.toUpperCase();
         }
-        
+
         Token newToken = new Token();
         newToken.setCodigo(this.palavrasReservadas.getCodigo(palavra));
         newToken.setPalavra(palavra);
