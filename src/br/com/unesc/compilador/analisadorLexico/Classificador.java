@@ -60,7 +60,11 @@ public class Classificador {
 
                 if (pilha.get(i).equals('*') && pilha.get(i + 1).equals(')')) {
                     this.isComentario = false;
-                    i = i +2;
+                    i++;
+                    if(i == pilha.size() -1){
+                        return;
+                    }
+                    i++;
                 }
                 if(this.isComentario){
                     i++;
