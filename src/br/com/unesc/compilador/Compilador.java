@@ -24,11 +24,11 @@ public class Compilador {
     Classificador classificador = new Classificador();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 
-    void Compilar(String path) {
+    Stack<Token> Compilar(String path) {
         List<String> arquivo = leArquivo(path);
         Stack<Token> pilhaTokens = mandaClassificar(arquivo);
         
-        System.out.println(pilhaTokens);
+        return pilhaTokens;
     }
 
     List<String> leArquivo(String path) {
