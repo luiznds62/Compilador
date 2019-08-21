@@ -10,6 +10,7 @@ import br.com.unesc.utilidades.ManipuladorArquivo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -26,8 +27,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class IDE extends javax.swing.JFrame {
 
-    Compilador compilador = new Compilador();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
+    DefaultTableModel model;
 
     /**
      * Creates new form IDE
@@ -304,18 +305,24 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
     private void menuNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNovoActionPerformed
         // TODO add your handling code here:
+        limparAmbiente();
+    }//GEN-LAST:event_menuNovoActionPerformed
+
+    private void limparAmbiente() {
         txaCodigo.setText("");
         txaConsole.setText("");
         txfNomeArquivo.setText("");
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Código");
-        model.addColumn("Palavra");
-        tblLexico.setModel(model);
-    }//GEN-LAST:event_menuNovoActionPerformed
+        this.model.setRowCount(0);
+    }
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         // TODO add your handling code here:
-        if(txfNomeArquivo.getText().equals("")){
+        Compilador comp = new Compilador();
+        this.model = (DefaultTableModel) tblLexico.getModel();
+        if (this.model.getRowCount() != 0) {
+            this.model.setRowCount(0);
+        }
+        if (txfNomeArquivo.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "O arquivo será salvo antes da compilação.");
             try {
                 manipuladorArquivo.gravar("D:\\compiladores\\arquivo.txt", txaCodigo.getText());
@@ -324,11 +331,21 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
                 Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        DefaultTableModel model = (DefaultTableModel) tblLexico.getModel();
-        Stack<Token> dadosLexico = compilador.Compilar(txfNomeArquivo.getText());
-        dadosLexico.forEach(it ->{
-            model.addRow(new Object[]{it.getCodigo(),it.getPalavra()});
+        if(txfNomeArquivo.getText().equals("D:\\compiladores\\arquivo.txt")){
+            try {
+                manipuladorArquivo.gravar("D:\\compiladores\\arquivo.txt", txaCodigo.getText());
+                txfNomeArquivo.setText("D:\\compiladores\\arquivo.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        Stack<Token> dadosLexico = comp.Compilar(txfNomeArquivo.getText());
+        dadosLexico.forEach(it -> {
+            model.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
         });
+        Date dataAtual = new Date();
+        txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
     }//GEN-LAST:event_btnPlayActionPerformed
 
     /**

@@ -76,6 +76,7 @@ public class ManipuladorArquivo {
         } finally {
             if (arq != null) {
                 arq.close();
+                ps.close();
             }
         }
     }
