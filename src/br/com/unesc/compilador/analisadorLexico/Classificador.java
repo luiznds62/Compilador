@@ -16,6 +16,7 @@ import java.util.Stack;
  */
 public class Classificador {
 
+    Boolean isLiteral = false;
     Boolean isComentario = false;
     PalavrasReservadas palavrasReservadas;
     List<String> delimitadores;
@@ -61,12 +62,12 @@ public class Classificador {
                 if (pilha.get(i).equals('*') && pilha.get(i + 1).equals(')')) {
                     this.isComentario = false;
                     i++;
-                    if(i == pilha.size() -1){
+                    if (i == pilha.size() - 1) {
                         return;
                     }
                     i++;
                 }
-                if(this.isComentario){
+                if (this.isComentario) {
                     i++;
                 }
             }
@@ -108,6 +109,25 @@ public class Classificador {
                 }
             }
 
+            if (pilha.get(i).equals('\'')) {
+                palavra.append(pilha.get(i));
+                i++;
+                while (!pilha.get(i).equals('\'')) {
+                    palavra.append(pilha.get(i));
+                    i++;
+                }
+                palavra.append(pilha.get(i));
+                classificaPalavra(palavra.toString());
+                palavra = new StringBuilder();
+                
+                if(i == pilha.size() -1){
+                    return;
+                }else{
+                    i++;
+                }
+            }
+
+            
             palavra.append(pilha.get(i));
 
             if (i == pilha.size() - 1) {

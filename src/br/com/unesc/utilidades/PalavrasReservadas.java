@@ -17,6 +17,7 @@ public class PalavrasReservadas extends HashMap<Integer, String> {
         int retorno = 25;
         
         if(isInteger(value)) return 26;
+        if(isLiteral(value)) return 48;
         
         if (this.containsValue(value)) {
             retorno = this.entrySet()
@@ -29,6 +30,13 @@ public class PalavrasReservadas extends HashMap<Integer, String> {
         return retorno;
     }
 
+    private Boolean isLiteral(String value){
+        if(value.startsWith("\'") && value.endsWith("\'")){
+            return true;
+        }
+        return false;
+    }
+    
     private Boolean isInteger(String value) {
         if(value.equals("0")){
             return true;
