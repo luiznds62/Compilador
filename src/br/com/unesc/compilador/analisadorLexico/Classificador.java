@@ -119,15 +119,14 @@ public class Classificador {
                 palavra.append(pilha.get(i));
                 classificaPalavra(palavra.toString());
                 palavra = new StringBuilder();
-                
-                if(i == pilha.size() -1){
+
+                if (i == pilha.size() - 1) {
                     return;
-                }else{
+                } else {
                     i++;
                 }
             }
 
-            
             palavra.append(pilha.get(i));
 
             if (i == pilha.size() - 1) {
