@@ -48,6 +48,9 @@ public class Classificador {
     private void desenpilharPalavras(Stack pilha) {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
+            /*
+                Aqui é verificado quando há continuação de literal na próxima linha.
+            */
             if (this.isLiteral) {
                 palavra.append(this.literalSalvo);
                 while (this.isLiteral) {
