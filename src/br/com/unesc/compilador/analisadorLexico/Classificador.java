@@ -16,6 +16,7 @@ import java.util.Stack;
  */
 public class Classificador {
 
+    String literalSalvo = "";
     Boolean isLiteral = false;
     Boolean isComentario = false;
     PalavrasReservadas palavrasReservadas;
@@ -47,6 +48,28 @@ public class Classificador {
     private void desenpilharPalavras(Stack pilha) {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
+            if (this.isLiteral) {
+                palavra.append(this.literalSalvo);
+                while (this.isLiteral) {
+                    if (!pilha.get(i).equals('\'')) {
+                        if (i == pilha.size() - 1) {
+                            return;
+                        }
+                    }
+                    palavra.append(pilha.get(i));
+                    if (!(i == pilha.size() - 1)) {
+                        i++;
+                    }else{
+                        this.isLiteral = false;
+                    }
+                }
+                classificaPalavra(palavra.toString());
+                palavra = new StringBuilder();
+                this.isLiteral = false;
+                if (i == pilha.size() - 1) {
+                    return;
+                }
+            }
             /*
                 Verificação de comentário:
                 No caso da pilha conter os caracteres ( e * seguidos, o classificador
@@ -199,15 +222,26 @@ public class Classificador {
                 Do contrário é passado para próxima linha.
              */
             if (pilha.get(i).equals('\'')) {
+                this.isLiteral = true;
                 palavra.append(pilha.get(i));
                 i++;
                 while (!pilha.get(i).equals('\'')) {
+                    /*
+                        Caso for o ultimo elemento deve ir para próxima linha
+                        Até cair na verificação de cima.
+                     */
+                    if (i == pilha.size() - 1) {
+                        palavra.append(pilha.get(i));
+                        this.literalSalvo = palavra.toString();
+                        return;
+                    }
                     palavra.append(pilha.get(i));
                     i++;
                 }
                 palavra.append(pilha.get(i));
                 classificaPalavra(palavra.toString());
                 palavra = new StringBuilder();
+                this.isLiteral = false;
 
                 if (i == pilha.size() - 1) {
                     return;
