@@ -26,8 +26,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class IDE extends javax.swing.JFrame {
 
-    ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
-    DefaultTableModel model;
+    private ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
+    private DefaultTableModel model;
+    private String caminhoArquivo = "";
 
     /**
      * Creates new form IDE
@@ -315,37 +316,39 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     }
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
-        // TODO add your handling code here:
+        getPatch();
+
         Compilador comp = new Compilador();
         this.model = (DefaultTableModel) tblLexico.getModel();
         if (this.model.getRowCount() != 0) {
             this.model.setRowCount(0);
         }
-        if (txfNomeArquivo.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "O arquivo será salvo antes da compilação.");
-            try {
-                manipuladorArquivo.gravar("D:\\compiladores\\arquivo.txt", txaCodigo.getText());
-                txfNomeArquivo.setText("D:\\compiladores\\arquivo.txt");
-            } catch (IOException ex) {
-                Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            manipuladorArquivo.gravar(caminhoArquivo, txaCodigo.getText());
+            
+            Stack<Token> dadosLexico = comp.Compilar(txfNomeArquivo.getText());
+            dadosLexico.forEach(it -> {
+                model.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
+            });
+            Date dataAtual = new Date();
+            txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
+        } catch (IOException ex) {
+            Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(txfNomeArquivo.getText().equals("D:\\compiladores\\arquivo.txt")){
-            try {
-                manipuladorArquivo.gravar("D:\\compiladores\\arquivo.txt", txaCodigo.getText());
-                txfNomeArquivo.setText("D:\\compiladores\\arquivo.txt");
-            } catch (IOException ex) {
-                Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        Stack<Token> dadosLexico = comp.Compilar(txfNomeArquivo.getText());
-        dadosLexico.forEach(it -> {
-            model.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
-        });
-        Date dataAtual = new Date();
-        txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
     }//GEN-LAST:event_btnPlayActionPerformed
+
+    private void getPatch() {
+        if (caminhoArquivo.isEmpty()) {
+            final JFileChooser fc = new JFileChooser();
+            fc.showSaveDialog(this);
+            File file = fc.getSelectedFile();
+            String path = file.getAbsolutePath();
+            path = path.endsWith(".txt") ? path : path+".txt";
+            caminhoArquivo = path;
+            txfNomeArquivo.setText(caminhoArquivo);
+        }
+    }
 
     /**
      * @param args the command line arguments
