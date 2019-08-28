@@ -47,6 +47,12 @@ public class Classificador {
     private void desenpilharPalavras(Stack pilha) {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
+            /*
+                Verificação de comentário:
+                No caso da pilha conter os caracteres ( e * seguidos, o classificador
+                Irá entrar em loop até que seja encontrado um * sucedido de )
+                Inclusive passando para as próximas linhas.
+             */
             if (pilha.get(i).equals('(')) {
                 if (pilha.get(i + 1).equals('*')) {
                     this.isComentario = true;
@@ -72,6 +78,81 @@ public class Classificador {
                 }
             }
 
+            /* 
+                Verificação das palavras reservadas: <> e <=
+                Se a pilha conter o caractér < verifica a próxima posição para assim atender
+                o caso da palavra reservada <> e <=, a mesma situação ocorre em caso o buffer
+                conter esse caractér.
+             */
+            if (!(i == pilha.size() - 1)) {
+                if (pilha.get(i).equals('<') && (pilha.get(i++).equals('>') || pilha.get(i++).equals('=')) || (palavra.toString().equals("<") && (pilha.get(i).equals('>') || pilha.get(i).equals('=')))) {
+                    if (palavra.toString().equals("")) {
+                        palavra.append(pilha.get(i));
+                        i++;
+                        palavra.append(pilha.get(i));
+                    } else {
+                        palavra.append(pilha.get(i));
+                    }
+
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            /* 
+                Verificação da palavra reservada: >=
+                Se a pilha conter o caractér > verifica a próxima posição para assim atender
+                o caso da palavra reservada >=, a mesma situação ocorre em caso o buffer
+                conter esse caractér.
+             */
+            if (!(i == pilha.size() - 1)) {
+                if (pilha.get(i).equals('>') && pilha.get(i++).equals('=') || (palavra.toString().equals(">") && pilha.get(i).equals('='))) {
+                    if (palavra.toString().equals("")) {
+                        palavra.append(pilha.get(i));
+                        i++;
+                        palavra.append(pilha.get(i));
+                    } else {
+                        palavra.append(pilha.get(i));
+                    }
+
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            /* 
+                Verificação da palavra reservada: ..
+                Se a pilha conter o caractér . verifica a próxima posição para assim atender
+                o caso da palavra reservada .., a mesma situação ocorre em caso o buffer
+                conter esse caractér.
+             */
+            if (!(i == pilha.size() - 1)) {
+                if (palavra.equals("") && pilha.get(i).equals('.') && pilha.get(i++).equals('.') || (palavra.toString().equals(".") && pilha.get(i).equals('.'))) {
+                    if (palavra.toString().equals("")) {
+                        palavra.append(pilha.get(i));
+                        i++;
+                        palavra.append(pilha.get(i));
+                    } else {
+                        palavra.append(pilha.get(i));
+                    }
+
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            /*
+                Esta parte do código faz a verificação se a pilha ou o buffer encontrou um delimitador
+             */
             if (isDelimitador((char) pilha.get(i)) || palavra.length() != 0 && isDelimitador((char) palavra.charAt(0))) {
                 if (palavra.length() != 0 && !pilha.get(i).equals('_')) {
                     classificaPalavra(palavra.toString());
@@ -91,9 +172,12 @@ public class Classificador {
                 }
             }
 
+            /*
+                Pode ocorrer de no processo acima ser incrementado o inicio de um comentário
+                E para que o mesmo não seja classificado é feito uma nova validação.
+             */
             if (pilha.get(i).equals('(')) {
                 if (pilha.get(i + 1).equals('*')) {
-
                     i++;
                     i++;
                     while (!pilha.get(i).equals('*')) {
@@ -106,9 +190,14 @@ public class Classificador {
                     if (i == pilha.size() - 1) {
                         return;
                     }
-                }
+                };
             }
 
+            /*
+                Verificação de literais:
+                Caso for encontado o caracter ' o buffer irá ser carregado até encontrar um novo '
+                Do contrário é passado para próxima linha.
+             */
             if (pilha.get(i).equals('\'')) {
                 palavra.append(pilha.get(i));
                 i++;
