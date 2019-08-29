@@ -290,14 +290,13 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     }//GEN-LAST:event_menuAbrirArquivoActionPerformed
 
     private void menuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalvarActionPerformed
-        // TODO add your handling code here:
-        final JFileChooser fc = new JFileChooser();
-        fc.showSaveDialog(this);
-        File file = fc.getSelectedFile();
-        String path = file.getAbsolutePath() + ".txt";
+        getPath();
+
         String codigo = txaCodigo.getText();
+        String path = txfNomeArquivo.getText();
         try {
             manipuladorArquivo.gravar(path, codigo);
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso.", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -316,7 +315,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     }
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
-        getPatch();
+        getPath();
 
         Compilador comp = new Compilador();
         this.model = (DefaultTableModel) tblLexico.getModel();
@@ -338,7 +337,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
         }
     }//GEN-LAST:event_btnPlayActionPerformed
 
-    private void getPatch() {
+    private void getPath() {
         if (caminhoArquivo.isEmpty()) {
             final JFileChooser fc = new JFileChooser();
             fc.showSaveDialog(this);
