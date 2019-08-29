@@ -274,7 +274,9 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
         fc.setFileFilter(filtro);
         int resultado = fc.showOpenDialog(this);
         File arquivo = fc.getSelectedFile();
-        txfNomeArquivo.setText(fc.getSelectedFile().toString());
+        caminhoArquivo = fc.getSelectedFile().toString();
+        txfNomeArquivo.setText(caminhoArquivo);
+        
         if (arquivo == null || (arquivo.getName().equals(""))) {
             JOptionPane.showMessageDialog(this, "Nome do arquivo inválido.", "Erro ao selecionar", JOptionPane.ERROR_MESSAGE);
         }
