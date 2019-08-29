@@ -310,6 +310,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     }//GEN-LAST:event_menuNovoActionPerformed
 
     private void limparAmbiente() {
+        caminhoArquivo = "";
         txaCodigo.setText("");
         txaConsole.setText("");
         txfNomeArquivo.setText("");
