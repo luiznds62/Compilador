@@ -336,6 +336,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
             try {
                 dadosLexico = comp.Compilar(txfNomeArquivo.getText());
             } catch (Exception ex) {
+                System.out.println(ex);
                 Date dataAtual = new Date();
                 txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - " + ex + "\n"));
             }
