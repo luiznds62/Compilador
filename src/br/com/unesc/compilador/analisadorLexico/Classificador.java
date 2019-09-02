@@ -9,6 +9,8 @@ import br.com.unesc.utilidades.Construtor;
 import br.com.unesc.utilidades.PalavrasReservadas;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,17 +33,17 @@ public class Classificador {
 
     public Stack<Token> classificar(List<String> arquivo) throws Exception {
         arquivo.forEach((linha) -> {
-            tokenizarLinha(linha);
+            try {
+                tokenizarLinha(linha);
+            } catch (Exception ex) {
+                Logger.getLogger(Classificador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
-        
-        if(this.isComentario){
-            throw new Exception("Bloco de comentário não fechado.");
-        }
-        
+
         return this.tokens;
     }
 
-    private void tokenizarLinha(String linha) {
+    private void tokenizarLinha(String linha) throws Exception {
         Stack palavra = new Stack();
         for (char token : linha.toCharArray()) {
             palavra.push(token);
@@ -49,12 +51,41 @@ public class Classificador {
         desenpilharPalavras(palavra);
     }
 
-    private void desenpilharPalavras(Stack pilha) {
+    private void desenpilharPalavras(Stack pilha) throws Exception {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
             /*
+                Verifica se o primeiro caracter é um número e o segundo caractér
+             */
+            if (isInteger(pilha.get(i).toString())) {
+                if (i != pilha.size() - 1) {
+                    if (Character.isLetter((char) pilha.get(i + 1))) {
+                        throw new Exception("Não é permitido iniciar identificadores com números.");
+                    }
+                }
+            }
+
+            /*
+                Verificação de inteiros negativos
+             */
+            if (pilha.get(i).equals('-') && isInteger(pilha.get(i + 1).toString())) {
+                palavra.append(pilha.get(i));
+                i++;
+                while (isInteger(pilha.get(i).toString())) {
+                    palavra.append(pilha.get(i));
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        classificaPalavra(palavra.toString());
+                        palavra = new StringBuilder();
+                        return;
+                    }
+                }
+            }
+
+            /*
                 Aqui é verificado quando há continuação de literal na próxima linha.
-            */
+             */
             if (this.isLiteral) {
                 palavra.append(this.literalSalvo);
                 while (this.isLiteral) {
@@ -66,7 +97,7 @@ public class Classificador {
                     palavra.append(pilha.get(i));
                     if (!(i == pilha.size() - 1)) {
                         i++;
-                    }else{
+                    } else {
                         this.isLiteral = false;
                     }
                 }
@@ -275,6 +306,24 @@ public class Classificador {
 
     private Boolean isPalavraReservada(String palavra) {
         return this.palavrasReservadas.containsValue(palavra.toUpperCase());
+    }
+
+    private Boolean isInteger(String value) {
+        if (value.equals("0")) {
+            return true;
+        }
+
+        Boolean isInteger = false;
+        int valor = 0;
+        try {
+            valor = Integer.parseInt(value);
+            if (valor > 32767 || valor < -32767) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+
+        }
+        return valor != 0;
     }
 
     private void classificaPalavra(String palavra) {
