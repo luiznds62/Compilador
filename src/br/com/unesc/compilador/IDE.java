@@ -8,6 +8,7 @@ package br.com.unesc.compilador;
 import br.com.unesc.compilador.analisadorLexico.Token;
 import br.com.unesc.utilidades.ManipuladorArquivo;
 import br.com.unesc.utilidades.NumeredBorder;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +17,9 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -37,8 +40,9 @@ public class IDE extends javax.swing.JFrame {
     public IDE() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
+
         txaCodigo.setBorder(new NumeredBorder());
+        initPopUpMenu();
     }
 
     /**
@@ -50,6 +54,7 @@ public class IDE extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu2 = new javax.swing.JPopupMenu();
         jPanel3 = new javax.swing.JPanel();
         btnPlay = new javax.swing.JButton();
         txfNomeArquivo = new javax.swing.JTextField();
@@ -114,6 +119,11 @@ public class IDE extends javax.swing.JFrame {
         txaConsole.setEditable(false);
         txaConsole.setColumns(20);
         txaConsole.setRows(5);
+        txaConsole.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txaConsoleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(txaConsole);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -349,16 +359,37 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
         }
     }//GEN-LAST:event_btnPlayActionPerformed
 
+    private void txaConsoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txaConsoleMouseClicked
+
+        if (evt.getButton() == evt.BUTTON3) {
+
+            jPopupMenu2.show(this, evt.getXOnScreen(), evt.getYOnScreen());
+
+        }
+
+    }//GEN-LAST:event_txaConsoleMouseClicked
+
     private void getPath() {
         if (caminhoArquivo.isEmpty()) {
             final JFileChooser fc = new JFileChooser();
             fc.showSaveDialog(this);
-            File file = fc.getSelectedFile();
+            File file = fc.getSelectedFile();         
             String path = file.getAbsolutePath();
             path = path.endsWith(".txt") ? path : path + ".txt";
             caminhoArquivo = path;
             txfNomeArquivo.setText(caminhoArquivo);
         }
+    }
+
+    private void initPopUpMenu() {
+        JMenuItem menuItemLimpar = new JMenuItem(
+                new AbstractAction("Limpar") {
+            public void actionPerformed(ActionEvent e) {
+               txaConsole.setText("");
+            }
+        }
+        );
+        jPopupMenu2.add(menuItemLimpar);
     }
 
     /**
@@ -378,13 +409,17 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IDE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IDE.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IDE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IDE.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IDE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IDE.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IDE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IDE.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -404,6 +439,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
