@@ -363,7 +363,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
         if (evt.getButton() == evt.BUTTON3) {
 
-            jPopupMenu2.show(this, evt.getXOnScreen(), evt.getYOnScreen());
+            jPopupMenu2.show(this, evt.getXOnScreen()-70, evt.getYOnScreen()-30);
 
         }
 
