@@ -276,7 +276,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
         File arquivo = fc.getSelectedFile();
         caminhoArquivo = fc.getSelectedFile().toString();
         txfNomeArquivo.setText(caminhoArquivo);
-        
+
         if (arquivo == null || (arquivo.getName().equals(""))) {
             JOptionPane.showMessageDialog(this, "Nome do arquivo inválido.", "Erro ao selecionar", JOptionPane.ERROR_MESSAGE);
         }
@@ -328,8 +328,14 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
         try {
             manipuladorArquivo.gravar(caminhoArquivo, txaCodigo.getText());
-            
-            Stack<Token> dadosLexico = comp.Compilar(txfNomeArquivo.getText());
+
+            Stack<Token> dadosLexico = null;
+            try {
+                dadosLexico = comp.Compilar(txfNomeArquivo.getText());
+            } catch (Exception ex) {
+                Date dataAtual = new Date();
+                txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - " + ex + "\n"));
+            }
             dadosLexico.forEach(it -> {
                 model.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
             });
@@ -346,7 +352,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
             fc.showSaveDialog(this);
             File file = fc.getSelectedFile();
             String path = file.getAbsolutePath();
-            path = path.endsWith(".txt") ? path : path+".txt";
+            path = path.endsWith(".txt") ? path : path + ".txt";
             caminhoArquivo = path;
             txfNomeArquivo.setText(caminhoArquivo);
         }

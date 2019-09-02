@@ -24,9 +24,14 @@ public class Compilador {
     Classificador classificador = new Classificador();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 
-    Stack<Token> Compilar(String path) {
+    Stack<Token> Compilar(String path) throws Exception {
         List<String> arquivo = leArquivo(path);
-        Stack<Token> pilhaTokens = mandaClassificar(arquivo);
+        Stack<Token> pilhaTokens = null;
+        try {
+            pilhaTokens = mandaClassificar(arquivo);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
         
         return pilhaTokens;
     }
@@ -35,7 +40,11 @@ public class Compilador {
         return this.manipuladorArquivo.lerEspecial(path);
     }
     
-    Stack<Token> mandaClassificar(List<String> arquivo){
-        return this.classificador.classificar(arquivo);
+    Stack<Token> mandaClassificar(List<String> arquivo) throws Exception{
+        try {
+            return this.classificador.classificar(arquivo);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
     }
 }

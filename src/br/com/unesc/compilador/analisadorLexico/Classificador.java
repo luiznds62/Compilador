@@ -29,11 +29,15 @@ public class Classificador {
         tokens = new Stack<>();
     }
 
-    public Stack<Token> classificar(List<String> arquivo) {
+    public Stack<Token> classificar(List<String> arquivo) throws Exception {
         arquivo.forEach((linha) -> {
             tokenizarLinha(linha);
         });
-
+        
+        if(this.isComentario){
+            throw new Exception("Bloco de comentário não fechado.");
+        }
+        
         return this.tokens;
     }
 
