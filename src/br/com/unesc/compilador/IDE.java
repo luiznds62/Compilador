@@ -7,6 +7,7 @@ package br.com.unesc.compilador;
 
 import br.com.unesc.compilador.analisadorLexico.Token;
 import br.com.unesc.utilidades.ManipuladorArquivo;
+import br.com.unesc.utilidades.NumeredBorder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +37,8 @@ public class IDE extends javax.swing.JFrame {
     public IDE() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        
+        txaCodigo.setBorder(new NumeredBorder());
     }
 
     /**
