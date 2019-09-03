@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @author Luiz Henrique
  */
 public class Compilador {
+
     ArrayList<String[]> linhas = new ArrayList<String[]>();
     Classificador classificador = new Classificador();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
@@ -27,24 +28,16 @@ public class Compilador {
     Stack<Token> Compilar(String path) throws Exception {
         List<String> arquivo = leArquivo(path);
         Stack<Token> pilhaTokens = null;
-        try {
-            pilhaTokens = mandaClassificar(arquivo);
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
-        
+        pilhaTokens = mandaClassificar(arquivo);
+
         return pilhaTokens;
     }
 
     List<String> leArquivo(String path) {
         return this.manipuladorArquivo.lerEspecial(path);
     }
-    
-    Stack<Token> mandaClassificar(List<String> arquivo) throws Exception{
-        try {
-            return this.classificador.classificar(arquivo);
-        } catch (Exception ex) {
-            throw new Exception(ex);
-        }
+
+    Stack<Token> mandaClassificar(List<String> arquivo) throws Exception {
+        return this.classificador.classificar(arquivo);
     }
 }
