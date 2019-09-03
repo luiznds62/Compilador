@@ -338,8 +338,6 @@ public class Classificador {
             valor = Integer.parseInt(value);
             if (valor > 32767 || valor < -32767) {
                 return false;
-            }else{
-                throw new Exception("Inteiro fora do intervalo de -32767 e 32767");
             }
         } catch (NumberFormatException e) {
 
