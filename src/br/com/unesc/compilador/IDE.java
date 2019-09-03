@@ -86,6 +86,7 @@ public class IDE extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
         btnPlay.setText("Play");
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +245,7 @@ public class IDE extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addGap(5, 5, 5)
@@ -364,7 +365,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
         if (evt.getButton() == evt.BUTTON3) {
 
-            jPopupMenu2.show(this, evt.getXOnScreen(), evt.getYOnScreen());
+            jPopupMenu2.show(this, evt.getXOnScreen()-70, evt.getYOnScreen()-30);
 
         }
 

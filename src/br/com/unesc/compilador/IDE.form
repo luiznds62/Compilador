@@ -122,7 +122,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" pref="779" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="785" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -168,6 +168,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnPlay">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/unesc/assets/ButtonPlay16px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Play"/>
           </Properties>
           <Events>
