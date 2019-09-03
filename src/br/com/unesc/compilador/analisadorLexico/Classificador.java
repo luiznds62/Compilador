@@ -327,7 +327,7 @@ public class Classificador {
         return this.palavrasReservadas.containsValue(palavra.toUpperCase());
     }
 
-    private Boolean isInteger(String value) {
+    private Boolean isInteger(String value) throws Exception {
         if (value.equals("0")) {
             return true;
         }
@@ -338,6 +338,8 @@ public class Classificador {
             valor = Integer.parseInt(value);
             if (valor > 32767 || valor < -32767) {
                 return false;
+            }else{
+                throw new Exception("Inteiro fora do intervalo de -32767 e 32767");
             }
         } catch (NumberFormatException e) {
 
