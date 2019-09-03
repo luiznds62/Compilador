@@ -32,13 +32,9 @@ public class Classificador {
     }
 
     public Stack<Token> classificar(List<String> arquivo) throws Exception {
-        arquivo.forEach((linha) -> {
-            try {
-                tokenizarLinha(linha);
-            } catch (Exception ex) {
-                Logger.getLogger(Classificador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        for(String linha: arquivo){
+            tokenizarLinha(linha);
+        }
 
         return this.tokens;
     }
@@ -79,6 +75,29 @@ public class Classificador {
                         classificaPalavra(palavra.toString());
                         palavra = new StringBuilder();
                         return;
+                    }
+                }
+            }
+            if (palavra.toString().equals("-")) {
+                if (isInteger(pilha.get(i).toString())) {
+                    palavra.append(pilha.get(i));
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        classificaPalavra(palavra.toString());
+                        palavra = new StringBuilder();
+                        return;
+                    }
+
+                    while (isInteger(pilha.get(i).toString())) {
+                        palavra.append(pilha.get(i));
+                        if (i != pilha.size() - 1) {
+                            i++;
+                        } else {
+                            classificaPalavra(palavra.toString());
+                            palavra = new StringBuilder();
+                            return;
+                        }
                     }
                 }
             }
@@ -308,7 +327,7 @@ public class Classificador {
         return this.palavrasReservadas.containsValue(palavra.toUpperCase());
     }
 
-    private Boolean isInteger(String value) {
+    private Boolean isInteger(String value) throws Exception {
         if (value.equals("0")) {
             return true;
         }
@@ -319,6 +338,8 @@ public class Classificador {
             valor = Integer.parseInt(value);
             if (valor > 32767 || valor < -32767) {
                 return false;
+            }else{
+                throw new Exception("Inteiro fora do intervalo de -32767 e 32767");
             }
         } catch (NumberFormatException e) {
 
