@@ -209,6 +209,30 @@ public class Classificador {
                     }
                 }
             }
+            
+            /* 
+                Verificação da palavra reservada: :=
+                Se a pilha conter o caractér : verifica a próxima posição para assim atender
+                o caso da palavra reservada :=, a mesma situação ocorre em caso o buffer
+                conter esse caractér.
+             */
+            if (!(i == pilha.size() - 1)) {
+                if (pilha.get(i).equals(':') && pilha.get(i++).equals('=') || (palavra.toString().equals(":") && pilha.get(i).equals('='))) {
+                    if (palavra.toString().equals("")) {
+                        palavra.append(pilha.get(i));
+                        i++;
+                        palavra.append(pilha.get(i));
+                    } else {
+                        palavra.append(pilha.get(i));
+                    }
+
+                    if (i != pilha.size() - 1) {
+                        i++;
+                    } else {
+                        return;
+                    }
+                }
+            }
 
             /* 
                 Verificação da palavra reservada: ..
@@ -385,7 +409,7 @@ public class Classificador {
 
         if(isNumber(palavra)){
             if(Integer.parseInt(palavra) > 32767 || Integer.parseInt(palavra) < -32676 ){
-                throw new Exception("Não é permitido inteiros maiores que 32767 ou menores -32767");
+                throw new Exception(getLinhaEPosicao() + " Não é permitido inteiros maiores que 32767 ou menores -32767");
             }
         };
         if (isPalavraReservada(palavra)) {
