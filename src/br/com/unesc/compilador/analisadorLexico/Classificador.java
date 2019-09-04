@@ -18,6 +18,8 @@ import java.util.logging.Logger;
  */
 public class Classificador {
 
+    Integer linhaAtual = 0;
+    Integer posicaoAtual = 0;
     String literalSalvo = "";
     Boolean isLiteral = false;
     Boolean isComentario = false;
@@ -32,7 +34,8 @@ public class Classificador {
     }
 
     public Stack<Token> classificar(List<String> arquivo) throws Exception {
-        for(String linha: arquivo){
+        for (String linha : arquivo) {
+            linhaAtual++;
             tokenizarLinha(linha);
         }
 
@@ -50,13 +53,14 @@ public class Classificador {
     private void desenpilharPalavras(Stack pilha) throws Exception {
         StringBuilder palavra = new StringBuilder();
         for (int i = 0; i < pilha.size(); i++) {
+            posicaoAtual = i;
             /*
                 Verifica se o primeiro caracter é um número e o segundo caractér
              */
             if (isInteger(pilha.get(i).toString())) {
                 if (i != pilha.size() - 1) {
                     if (Character.isLetter((char) pilha.get(i + 1))) {
-                        throw new Exception("Não é permitido iniciar identificadores com números.");
+                        throw new Exception(getLinhaEPosicao() + " Não é permitido iniciar identificadores com números.");
                     }
                 }
             }
@@ -235,6 +239,7 @@ public class Classificador {
              */
             if (isDelimitador((char) pilha.get(i)) || palavra.length() != 0 && isDelimitador((char) palavra.charAt(0))) {
                 if (palavra.length() != 0 && !pilha.get(i).equals('_')) {
+                    posicaoAtual = i;
                     classificaPalavra(palavra.toString());
                     palavra = new StringBuilder();
                 }
@@ -296,6 +301,7 @@ public class Classificador {
                     i++;
                 }
                 palavra.append(pilha.get(i));
+                posicaoAtual = i;
                 classificaPalavra(palavra.toString());
                 palavra = new StringBuilder();
                 this.isLiteral = false;
@@ -306,6 +312,14 @@ public class Classificador {
                     i++;
                 }
             }
+            
+            if (isInteger(pilha.get(i).toString())) {
+                if (i != pilha.size() - 1) {
+                    if (Character.isLetter((char) pilha.get(i + 1))) {
+                        throw new Exception(getLinhaEPosicao() + " Não é permitido iniciar identificadores com números.");
+                    }
+                }
+            }
 
             palavra.append(pilha.get(i));
 
@@ -313,6 +327,7 @@ public class Classificador {
                 if (palavra.toString().equals("")) {
                     return;
                 }
+                posicaoAtual = i;
                 classificaPalavra(palavra.toString());
                 palavra = new StringBuilder();
             }
@@ -336,20 +351,43 @@ public class Classificador {
         int valor = 0;
         try {
             valor = Integer.parseInt(value);
-            if (valor > 32767 || valor < -32767) {
-                return false;
-            }
         } catch (NumberFormatException e) {
 
         }
         return valor != 0;
     }
 
-    private void classificaPalavra(String palavra) {
+    private String getLinhaEPosicao(){
+        return "[" + linhaAtual + "," + posicaoAtual + "]";
+    }
+    
+    private Boolean isNumber(String value) {
+        char[] caracteres = value.toCharArray();
+        boolean ehNumero = true;
+        for (int i = 0; i < caracteres.length; i++) // verifica se o char não é um dígito
+        {
+            if(caracteres[i] == '-' && caracteres.length != 1){
+                i++;
+            }
+            if (!Character.isDigit(caracteres[i])) {
+                ehNumero = false;
+                break;
+            }
+        }
+
+        return ehNumero;
+    }
+
+    private void classificaPalavra(String palavra) throws Exception {
         if (palavra.equals(" ")) {
             return;
         }
 
+        if(isNumber(palavra)){
+            if(Integer.parseInt(palavra) > 32767 || Integer.parseInt(palavra) < -32676 ){
+                throw new Exception("Não é permitido inteiros maiores que 32767 ou menores -32767");
+            }
+        };
         if (isPalavraReservada(palavra)) {
             palavra = palavra.toUpperCase();
         }
