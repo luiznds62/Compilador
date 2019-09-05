@@ -38,7 +38,11 @@ public class Classificador {
             linhaAtual++;
             tokenizarLinha(linha);
         }
-
+        
+        if (this.isComentario) {
+            throw new Exception(getLinhaEPosicao() + " Bloco de comentário não fechado.");
+        }
+        
         return this.tokens;
     }
 
@@ -110,26 +114,7 @@ public class Classificador {
                 Aqui é verificado quando há continuação de literal na próxima linha.
              */
             if (this.isLiteral) {
-                palavra.append(this.literalSalvo);
-                while (this.isLiteral) {
-                    if (!pilha.get(i).equals('\'')) {
-                        if (i == pilha.size() - 1) {
-                            return;
-                        }
-                    }
-                    palavra.append(pilha.get(i));
-                    if (!(i == pilha.size() - 1)) {
-                        i++;
-                    } else {
-                        this.isLiteral = false;
-                    }
-                }
-                classificaPalavra(palavra.toString());
-                palavra = new StringBuilder();
-                this.isLiteral = false;
-                if (i == pilha.size() - 1) {
-                    return;
-                }
+                throw new Exception(getLinhaEPosicao() + " Não é permitido atribuição de literal e mais de uma linha");
             }
             /*
                 Verificação de comentário:
@@ -209,7 +194,7 @@ public class Classificador {
                     }
                 }
             }
-            
+
             /* 
                 Verificação da palavra reservada: :=
                 Se a pilha conter o caractér : verifica a próxima posição para assim atender
@@ -336,7 +321,7 @@ public class Classificador {
                     i++;
                 }
             }
-            
+
             if (isInteger(pilha.get(i).toString())) {
                 if (i != pilha.size() - 1) {
                     if (Character.isLetter((char) pilha.get(i + 1))) {
@@ -381,16 +366,16 @@ public class Classificador {
         return valor != 0;
     }
 
-    private String getLinhaEPosicao(){
+    private String getLinhaEPosicao() {
         return "[" + linhaAtual + "," + posicaoAtual + "]";
     }
-    
+
     private Boolean isNumber(String value) {
         char[] caracteres = value.toCharArray();
         boolean ehNumero = true;
         for (int i = 0; i < caracteres.length; i++) // verifica se o char não é um dígito
         {
-            if(caracteres[i] == '-' && caracteres.length != 1){
+            if (caracteres[i] == '-' && caracteres.length != 1) {
                 i++;
             }
             if (!Character.isDigit(caracteres[i])) {
@@ -407,8 +392,8 @@ public class Classificador {
             return;
         }
 
-        if(isNumber(palavra)){
-            if(Integer.parseInt(palavra) > 32767 || Integer.parseInt(palavra) < -32676 ){
+        if (isNumber(palavra)) {
+            if (Integer.parseInt(palavra) > 32767 || Integer.parseInt(palavra) < -32676) {
                 throw new Exception(getLinhaEPosicao() + " Não é permitido inteiros maiores que 32767 ou menores -32767");
             }
         };
