@@ -38,11 +38,11 @@ public class Classificador {
             linhaAtual++;
             tokenizarLinha(linha);
         }
-        
+
         if (this.isComentario) {
             throw new Exception(getLinhaEPosicao() + " Bloco de comentário não fechado.");
         }
-        
+
         return this.tokens;
     }
 
@@ -59,7 +59,7 @@ public class Classificador {
         for (int i = 0; i < pilha.size(); i++) {
             posicaoAtual = i;
             /*
-                Verifica se o primeiro caracter é um número e o segundo caractér
+                Verifica se o primeiro caracter é um número e o segundo caractér letra
              */
             if (isInteger(pilha.get(i).toString())) {
                 if (i != pilha.size() - 1) {
@@ -202,20 +202,24 @@ public class Classificador {
                 conter esse caractér.
              */
             if (!(i == pilha.size() - 1)) {
-                if (pilha.get(i).equals(':') && pilha.get(i++).equals('=') || (palavra.toString().equals(":") && pilha.get(i).equals('='))) {
+                if (pilha.get(i).equals(':') && pilha.get(i + 1).equals('=') || (palavra.toString().equals(":") && pilha.get(i).equals('='))) {
                     if (palavra.toString().equals("")) {
                         palavra.append(pilha.get(i));
                         i++;
                         palavra.append(pilha.get(i));
                     } else {
-                        palavra.append(pilha.get(i));
+                        if (palavra.toString().equals(":")) {
+                            palavra.append(pilha.get(i));
+                            i++;
+                        }
                     }
 
-                    if (i != pilha.size() - 1) {
+                    if (i != pilha.size() - 1 && palavra.length() == 0) {
                         i++;
-                    } else {
-                        return;
                     }
+//                    } else {
+//                        return;
+//                    }
                 }
             }
 
@@ -240,6 +244,23 @@ public class Classificador {
                     } else {
                         return;
                     }
+                }
+            }
+
+            /*
+                Verificação de números com vírgula ou ponto
+             */
+            if (isInteger(pilha.get(i).toString())) {
+                if (i != pilha.size() - 1) {
+                    if (pilha.get(i + 1).equals('.') && !pilha.get(i + 2).equals('.') || pilha.get(i + 1).equals(',')) {
+                        throw new Exception(getLinhaEPosicao() + " Não são permitidos números com ',' ou '.'");
+                    }
+                }
+            }
+
+            if (isInteger(palavra.toString())) {
+                if (pilha.get(i).equals('.') && !pilha.get(i + 1).equals('.') || pilha.get(i).equals(',')) {
+                    throw new Exception(getLinhaEPosicao() + " Não são permitidos números com ',' ou '.'");
                 }
             }
 
