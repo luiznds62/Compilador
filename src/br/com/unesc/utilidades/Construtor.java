@@ -66,7 +66,7 @@ public class Construtor {
         palavrasReservadas.put(48, "LITERAL");
         palavrasReservadas.put(49, ".");
         palavrasReservadas.put(50, "..");
-        palavrasReservadas.put(51, "$");
+        //palavrasReservadas.put(51, "$");
         return palavrasReservadas;
     }
 
