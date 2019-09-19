@@ -13,6 +13,31 @@ public class Token {
 
     private Integer codigo;
     private String palavra;
+    private Integer linha;
+    private Boolean isTerminal;
+
+    public Boolean isTerminal() {
+        return isTerminal;
+    }
+
+    public void setTerminal(Boolean terminal) {
+        this.isTerminal = terminal;
+    }
+
+    public Integer getLinha() {
+        return linha;
+    }
+
+    public void setLinha(Integer linha) {
+        this.linha = linha;
+    }
+
+    public Token(Integer codigo, String palavra, Integer linha, Boolean isTerminal) {
+        this.codigo = codigo;
+        this.palavra = palavra;
+        this.linha = linha;
+        this.isTerminal = isTerminal;
+    }
 
     public Token() {
 

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Luiz Henrique
  */
-public class Classificador {
+public class ClassificadorLexico {
 
     Integer linhaAtual = 0;
     Integer posicaoAtual = 0;
@@ -27,7 +27,7 @@ public class Classificador {
     List<String> delimitadores;
     Stack<Token> tokens;
 
-    public Classificador() {
+    public ClassificadorLexico() {
         palavrasReservadas = Construtor.construirPalavrasReservadas();
         delimitadores = Construtor.construirDelimitadores();
         tokens = new Stack<>();
@@ -425,6 +425,8 @@ public class Classificador {
         Token newToken = new Token();
         newToken.setCodigo(this.palavrasReservadas.getCodigo(palavra));
         newToken.setPalavra(palavra);
+        newToken.setLinha(linhaAtual);
+        newToken.setTerminal(true);
         tokens.push(newToken);
     }
 }

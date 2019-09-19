@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding="iso-8859-1"?>
-<!DOCTYPE gramatica SYSTEM "catalogoPalavras.dtd">
+<!--<!DOCTYPE gramatica SYSTEM "catalogoPalavras.dtd">-->
 <gramatica>
 	<terminais>
 		<terminal codigo="1" simbolo="PROGRAM" />
-		<terminal codigo="2" simbolo="LABEL" />
+		<terminal codigo="2" catalogoPalavras.dtdsimbolo="LABEL" />
 		<terminal codigo="3" simbolo="CONST" />
 		<terminal codigo="4" simbolo="VAR" />
 		<terminal codigo="5" simbolo="PROCEDURE" />
