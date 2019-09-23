@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.unesc.compilador.analisadorLexico;
 
 import br.com.unesc.utilidades.Construtor;
 import br.com.unesc.utilidades.PalavrasReservadas;
 import java.util.List;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -373,18 +366,13 @@ public class Classificador {
     }
 
     private Boolean isInteger(String value) throws Exception {
-        if (value.equals("0")) {
-            return true;
-        }
 
-        Boolean isInteger = false;
-        int valor = 0;
         try {
-            valor = Integer.parseInt(value);
+            Integer.parseInt(value);
         } catch (NumberFormatException e) {
-
+            return false;
         }
-        return valor != 0;
+        return true;
     }
 
     private String getLinhaEPosicao() {

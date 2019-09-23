@@ -27,7 +27,7 @@ public class NumeredBorder extends AbstractBorder {
 	private JViewport viewport;
 	
 	public NumeredBorder() {
-		this.myColor = new Color(164, 164, 164);
+		this.myColor = new Color(200, 10, 10);
 	}
 	
         @Override

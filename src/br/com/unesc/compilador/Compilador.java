@@ -27,8 +27,7 @@ public class Compilador {
 
     Stack<Token> Compilar(String path) throws Exception {
         List<String> arquivo = leArquivo(path);
-        Stack<Token> pilhaTokens = null;
-        pilhaTokens = mandaClassificar(arquivo);
+        Stack<Token> pilhaTokens = mandaClassificar(arquivo);
 
         return pilhaTokens;
     }
