@@ -9,7 +9,7 @@ import java.util.Stack;
  *
  * @author Luiz Henrique
  */
-public class Classificador {
+public class ClassificadorLexico {
 
     Integer linhaAtual = 0;
     Integer posicaoAtual = 0;
@@ -20,7 +20,7 @@ public class Classificador {
     List<String> delimitadores;
     Stack<Token> tokens;
 
-    public Classificador() {
+    public ClassificadorLexico() {
         palavrasReservadas = Construtor.construirPalavrasReservadas();
         delimitadores = Construtor.construirDelimitadores();
         tokens = new Stack<>();

@@ -345,7 +345,8 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
             Stack<Token> dadosLexico = null;
             try {
-                dadosLexico = comp.Compilar(txfNomeArquivo.getText());
+                dadosLexico = comp.classificarLexico(txfNomeArquivo.getText());
+                comp.classificarSintatico(dadosLexico);
             } catch (Exception ex) {
                 System.out.println(ex);
                 Date dataAtual = new Date();

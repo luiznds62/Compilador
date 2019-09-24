@@ -5,7 +5,8 @@
  */
 package br.com.unesc.compilador;
 
-import br.com.unesc.compilador.analisadorLexico.Classificador;
+import br.com.unesc.analisadorSintatico.ClassificadorSintatico;
+import br.com.unesc.compilador.analisadorLexico.ClassificadorLexico;
 import br.com.unesc.compilador.analisadorLexico.Token;
 import br.com.unesc.utilidades.ManipuladorArquivo;
 import java.io.IOException;
@@ -22,14 +23,19 @@ import java.util.logging.Logger;
 public class Compilador {
 
     ArrayList<String[]> linhas = new ArrayList<String[]>();
-    Classificador classificador = new Classificador();
+    ClassificadorLexico classificadorLexico = new ClassificadorLexico();
+    ClassificadorSintatico classificadorSintatico = new ClassificadorSintatico();
     ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 
-    Stack<Token> Compilar(String path) throws Exception {
+    Stack<Token> classificarLexico(String path) throws Exception {
         List<String> arquivo = leArquivo(path);
         Stack<Token> pilhaTokens = mandaClassificar(arquivo);
 
         return pilhaTokens;
+    }
+    
+    void classificarSintatico(Stack<Token> dadosLexico) throws Exception{
+        classificadorSintatico.classificaSintatico(dadosLexico);
     }
 
     List<String> leArquivo(String path) {
@@ -37,6 +43,6 @@ public class Compilador {
     }
 
     Stack<Token> mandaClassificar(List<String> arquivo) throws Exception {
-        return this.classificador.classificar(arquivo);
+        return this.classificadorLexico.classificar(arquivo);
     }
 }
