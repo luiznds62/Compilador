@@ -21,6 +21,7 @@
   <component name="ProjectId" id="1PklxbEqnGv8SOlMeTQFNy9kPOn" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -93,5 +94,22 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="X.get(0)" language="JAVA" />
+        <watch expression="entrada" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

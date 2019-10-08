@@ -86,7 +86,7 @@ public class IDE extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
+        //btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
         btnPlay.setText("Play");
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,11 +342,12 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
 
         try {
             manipuladorArquivo.gravar(caminhoArquivo, txaCodigo.getText());
+            Boolean classificouSintatico = false;
 
             Stack<Token> dadosLexico = null;
             try {
                 dadosLexico = comp.classificarLexico(txfNomeArquivo.getText());
-                comp.classificarSintatico(dadosLexico);
+                classificouSintatico = comp.classificarSintatico(dadosLexico);
             } catch (Exception ex) {
                 System.out.println(ex);
                 Date dataAtual = new Date();
@@ -357,6 +358,9 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
             });
             Date dataAtual = new Date();
             txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
+            if(classificouSintatico){
+                txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador sintático executado com sucesso!\n"));
+            }
         } catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }

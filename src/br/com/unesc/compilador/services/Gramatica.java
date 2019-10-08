@@ -1,6 +1,7 @@
 package br.com.unesc.compilador.services;
 
 import br.com.unesc.compilador.analisadorLexico.Token;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -140,9 +141,20 @@ public class Gramatica {
 
     public List<Token> getTokenByNames(List<String> names) {
 //        verifiGramatica();
-        return gramatica.stream()
-                .filter(token -> names.contains(token.getPalavra()))
-                .collect(Collectors.toList());
+        List<Token> tokens = new ArrayList();
+        
+        for(int i = 0; i < names.size(); i++){
+            for(Token token: gramatica){
+                if(token.getPalavra().equals(names.get(i))){
+                    tokens.add(token);
+                }
+            }
+        }
+        
+        return tokens;
+//        return gramatica.stream()
+//                .filter(token -> names.contains(token.getPalavra()))
+//                .collect(Collectors.toList());
     }
 
     public Token getTokenByCode(int codigo) {

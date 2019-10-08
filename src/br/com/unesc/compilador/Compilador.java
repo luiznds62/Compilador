@@ -34,8 +34,8 @@ public class Compilador {
         return pilhaTokens;
     }
     
-    void classificarSintatico(Stack<Token> dadosLexico) throws Exception{
-        classificadorSintatico.classificaSintatico(dadosLexico);
+    Boolean classificarSintatico(Stack<Token> dadosLexico) throws Exception{
+        return classificadorSintatico.classificaSintatico(dadosLexico);
     }
 
     List<String> leArquivo(String path) {
