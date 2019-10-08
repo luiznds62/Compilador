@@ -74,9 +74,9 @@ public class TabelaParsing {
         if(naoTerminal.getCodigo() == 62 && terminal.getCodigo() == 6)
             return listaVazia;
         
-        if(naoTerminal.getCodigo() == 63 && terminal.getCodigo() == 6)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("LID",":","INTEGER"));
-        
+        if(naoTerminal.getCodigo() == 63 && terminal.getCodigo() == 36)
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("(","LID",":","INTEGER",")"));
+
         if(naoTerminal.getCodigo() == 63 && terminal.getCodigo() == 39)
             return listaVazia;
         
