@@ -16,7 +16,7 @@ import java.util.Stack;
  */
 public class ClassificadorSintatico {
 
-    public Boolean classificaSintatico(Stack<Token> lexico) throws Exception {
+    public Stack<Token> classificaSintatico(Stack<Token> lexico) throws Exception {
         Stack<Token> pilhaAuxiliar = new Stack();
         TabelaParsing M = new TabelaParsing();
         Stack<Token> X = new Stack();
@@ -34,7 +34,7 @@ public class ClassificadorSintatico {
                     X.remove(0);
                     lexico.remove(0);
                 } else {
-                    throw new Exception("Erro sintático");
+                    throw new Exception("A derivação ["+ entrada.getCodigo()  + "," + X.get(0).getCodigo() + "] '" + X.get(0).getPalavra() + "," + entrada.getPalavra() + "' não existe na tabela de Parsing");
                 }
             } else {
                 List<Token> listaDerivacoes = M.valida(entrada, X.get(0));
@@ -60,6 +60,6 @@ public class ClassificadorSintatico {
                 }
             }
         }
-        return true;
+        return X;
     }
 }

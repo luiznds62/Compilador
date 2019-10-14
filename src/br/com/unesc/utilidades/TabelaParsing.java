@@ -60,7 +60,7 @@ public class TabelaParsing {
             return listaVazia;
         
         if(naoTerminal.getCodigo() == 60 && terminal.getCodigo() == 25)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("LID",":","TIPO","TIPO",";","LDVAR"));
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("LID",":","TIPO",";","LDVAR"));
         
         if(naoTerminal.getCodigo() == 61 && terminal.getCodigo() == 8)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("INTEGER"));
@@ -69,7 +69,7 @@ public class TabelaParsing {
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("ARRAY","[","INTEIRO","..","INTEIRO","]","OF","INTEGER"));
         
         if(naoTerminal.getCodigo() == 62 && terminal.getCodigo() == 5)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("PROCEDURE","IDENTIFICADOR","DEFPAR",";","BLOCO",";","BLOCO",";","DCLPROC"));
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("PROCEDURE","IDENTIFICADOR","DEFPAR",";","BLOCO",";","DCLPROC"));
         
         if(naoTerminal.getCodigo() == 62 && terminal.getCodigo() == 6)
             return listaVazia;
@@ -103,13 +103,10 @@ public class TabelaParsing {
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 13)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("IF","EXPRESSAO","THEN","COMANDO","ELSEPARTE"));
-        
-        if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 13)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("IF","EXPRESSAO","THEN","COMANDO","ELSEPARTE"));
-        
+
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 15)
             return listaVazia;
-        
+
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 16)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("WHILE","EXPRESSAO","DO","COMANDO"));
         
@@ -121,15 +118,18 @@ public class TabelaParsing {
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 20)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("READLN", "(", "VARIAVEL","REPVARIAVEL",")"));
+
+        if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 21)
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("WRITELN", "(", "ITEMSAIDA","REPITEM",")"));
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 25)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("IDENTIFICADOR", "RCOMID"));
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 27)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("FOR", "IDENTIFICADOR", ":=", "EXPRESSAO", "EXPRESSAO", "EXPRESSAO", "DO", "COMANDO"));
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("FOR", "IDENTIFICADOR", ":=", "EXPRESSAO", "TO", "EXPRESSAO", "DO", "COMANDO"));
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 29)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList("CASE", "EXPRESSAO", "OF", "END"));
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList("CASE", "EXPRESSAO", "OF", "CONDCASE", "END"));
         
         if(naoTerminal.getCodigo() == 66 && terminal.getCodigo() == 47)
             return listaVazia;
@@ -172,13 +172,16 @@ public class TabelaParsing {
         
         if(naoTerminal.getCodigo() == 72 && terminal.getCodigo() == 25)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("IDENTIFICADOR", "VARIAVEL1"));
+
+        if(naoTerminal.getCodigo() == 73 && (terminal.getCodigo() >= 7 && terminal.getCodigo() <= 33))
+            return listaVazia;
         
         if(naoTerminal.getCodigo() == 73 && terminal.getCodigo() == 34)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("[", "EXPRESSAO", "]"));
         
-        if(naoTerminal.getCodigo() == 73 && (terminal.getCodigo() >= 7 && terminal.getCodigo() <= 47))
+        if(naoTerminal.getCodigo() == 73 && (terminal.getCodigo() >= 35 && terminal.getCodigo() <= 47))
             return listaVazia;
-        
+
         if(naoTerminal.getCodigo() == 74 && terminal.getCodigo() == 37)
             return listaVazia;
         
@@ -195,7 +198,7 @@ public class TabelaParsing {
             return listaVazia;
         
         if(naoTerminal.getCodigo() == 76 && terminal.getCodigo() == 46)
-            return Gramatica.getInstance().getTokenByNames(Arrays.asList(",", "VARIAVEL", "REPVARIAVEL"));
+            return Gramatica.getInstance().getTokenByNames(Arrays.asList(",", "ITEMSAIDA", "REPITEM"));
         
         if(naoTerminal.getCodigo() == 77 && (terminal.getCodigo() >= 24 && terminal.getCodigo() <= 36))
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("EXPSIMP", "REPEXPSIMP"));
@@ -218,7 +221,7 @@ public class TabelaParsing {
         if(naoTerminal.getCodigo() == 78 && terminal.getCodigo() == 44)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("<=", "EXPSIMP"));
         
-        if(naoTerminal.getCodigo() == 78 && terminal.getCodigo() == 42)
+        if(naoTerminal.getCodigo() == 78 && terminal.getCodigo() == 45)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("<>", "EXPSIMP"));
         
         if(naoTerminal.getCodigo() == 78 && (terminal.getCodigo() >= 46 && terminal.getCodigo() <= 47))

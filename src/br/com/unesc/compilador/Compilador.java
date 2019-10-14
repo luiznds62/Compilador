@@ -34,7 +34,7 @@ public class Compilador {
         return pilhaTokens;
     }
     
-    Boolean classificarSintatico(Stack<Token> dadosLexico) throws Exception{
+    Stack<Token> classificarSintatico(Stack<Token> dadosLexico) throws Exception{
         return classificadorSintatico.classificaSintatico(dadosLexico);
     }
 

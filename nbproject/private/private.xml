@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Luiz%20Henrique/Documents/GitHub/Compilador/src/br/com/unesc/compilador/Compilador.java</file>
             <file>file:/C:/Users/Luiz%20Henrique/Documents/GitHub/Compilador/src/br/com/unesc/utilidades/Construtor.java</file>
+            <file>file:/C:/Users/Luiz%20Henrique/Documents/GitHub/Compilador/src/br/com/unesc/utilidades/TabelaParsing.java</file>
             <file>file:/C:/Users/Luiz%20Henrique/Documents/GitHub/Compilador/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java</file>
             <file>file:/C:/Users/Luiz%20Henrique/Documents/GitHub/Compilador/src/br/com/unesc/compilador/IDE.java</file>
         </group>

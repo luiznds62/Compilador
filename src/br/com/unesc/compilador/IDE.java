@@ -31,7 +31,8 @@ import javax.swing.table.DefaultTableModel;
 public class IDE extends javax.swing.JFrame {
 
     private ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
-    private DefaultTableModel model;
+    private DefaultTableModel modelLexico;
+    private DefaultTableModel modelSintatico;
     private String caminhoArquivo = "";
 
     /**
@@ -65,6 +66,8 @@ public class IDE extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblLexico = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblSintatico = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAbrir = new javax.swing.JMenu();
@@ -86,7 +89,7 @@ public class IDE extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        //btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
+        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
         btnPlay.setText("Play");
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +107,7 @@ public class IDE extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnPlay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +137,7 @@ public class IDE extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Palavra"
+                "Código Léxico", "Palavra Léxico"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -147,16 +150,36 @@ public class IDE extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tblLexico);
 
+        tblSintatico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código Sintático", "Palavra Sintático"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tblSintatico);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -230,7 +253,7 @@ public class IDE extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 884, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -328,39 +351,46 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
         txaCodigo.setText("");
         txaConsole.setText("");
         txfNomeArquivo.setText("");
-        this.model.setRowCount(0);
+        this.modelLexico.setRowCount(0);
     }
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         getPath();
 
         Compilador comp = new Compilador();
-        this.model = (DefaultTableModel) tblLexico.getModel();
-        if (this.model.getRowCount() != 0) {
-            this.model.setRowCount(0);
+        this.modelLexico = (DefaultTableModel) tblLexico.getModel();
+        if (this.modelLexico.getRowCount() != 0) {
+            this.modelLexico.setRowCount(0);
         }
-
+        
+        this.modelSintatico = (DefaultTableModel) tblSintatico.getModel();
+        if(this.modelSintatico.getRowCount() != 0){
+            this.modelSintatico.setRowCount(0);
+        }
+        
         try {
             manipuladorArquivo.gravar(caminhoArquivo, txaCodigo.getText());
-            Boolean classificouSintatico = false;
+            Stack<Token> dadosSintatico = null;
 
             Stack<Token> dadosLexico = null;
             try {
                 dadosLexico = comp.classificarLexico(txfNomeArquivo.getText());
-                classificouSintatico = comp.classificarSintatico(dadosLexico);
+                dadosSintatico = comp.classificarSintatico(dadosLexico);
             } catch (Exception ex) {
                 System.out.println(ex);
                 Date dataAtual = new Date();
                 txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - " + ex + "\n"));
             }
             dadosLexico.forEach(it -> {
-                model.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
+                modelLexico.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
             });
+            dadosSintatico.forEach(it -> {
+                modelSintatico.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
+            });
+            
             Date dataAtual = new Date();
             txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
-            if(classificouSintatico){
-                txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador sintático executado com sucesso!\n"));
-            }
+            txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador sintático executado com sucesso!\n"));
         } catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -450,12 +480,14 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JMenu menuAbrir;
     private javax.swing.JMenuItem menuAbrirArquivo;
     private javax.swing.JMenuItem menuNovo;
     private javax.swing.JMenuItem menuSalvar;
     private javax.swing.JMenu menuSobre;
     private javax.swing.JTable tblLexico;
+    private javax.swing.JTable tblSintatico;
     private javax.swing.JTextArea txaCodigo;
     private javax.swing.JTextArea txaConsole;
     private javax.swing.JTextField txfNomeArquivo;
