@@ -16,7 +16,13 @@ public class TabelaParsing {
     
     public List<Token> valida(Token terminal, Token naoTerminal){
         List<Token> listaVazia = new ArrayList<Token>();
-        
+        List<Token> listaErro = new ArrayList<>();
+        Token tokenErro = new Token();
+        tokenErro.setCodigo(999);
+        tokenErro.setPalavra("NÃOEXISTENTE");
+        tokenErro.setLinha(999);
+        listaErro.add(tokenErro);
+
         if(naoTerminal.getCodigo() == 52 && terminal.getCodigo() == 1)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList("PROGRAM","IDENTIFICADOR",";","BLOCO","."));
             
@@ -305,6 +311,6 @@ public class TabelaParsing {
         if(naoTerminal.getCodigo() == 86 && terminal.getCodigo() == 46)
             return Gramatica.getInstance().getTokenByNames(Arrays.asList(",", "INTEIRO", "RPINTEIRO"));
         
-        return listaVazia;
+        return listaErro;
     }
 }

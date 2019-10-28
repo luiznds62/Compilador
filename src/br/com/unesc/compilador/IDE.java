@@ -89,7 +89,7 @@ public class IDE extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/unesc/assets/ButtonPlay16px.png"))); // NOI18N
+        //btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("../Compilador/src/br/com/unesc/assets/play.png"))); // NOI18N
         btnPlay.setText("Play");
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

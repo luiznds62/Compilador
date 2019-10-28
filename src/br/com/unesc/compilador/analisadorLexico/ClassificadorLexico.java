@@ -413,6 +413,7 @@ public class ClassificadorLexico {
         Token newToken = new Token();
         newToken.setCodigo(this.palavrasReservadas.getCodigo(palavra));
         newToken.setPalavra(palavra);
+        newToken.setLinha(linhaAtual);
         tokens.push(newToken);
     }
 }

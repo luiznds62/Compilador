@@ -34,11 +34,15 @@ public class ClassificadorSintatico {
                     X.remove(0);
                     lexico.remove(0);
                 } else {
-                    throw new Exception("A derivação ["+ entrada.getCodigo()  + "," + X.get(0).getCodigo() + "] '" + X.get(0).getPalavra() + "," + entrada.getPalavra() + "' não existe na tabela de Parsing");
+                    throw new Exception("A derivação na linha: " + entrada.getLinha() + "  - ["+ X.get(0).getCodigo() + "," + entrada.getCodigo()  + "] - '" + X.get(0).getPalavra() + "," + entrada.getPalavra() + "' não existe na tabela de Parsing");
                 }
             } else {
                 List<Token> listaDerivacoes = M.valida(entrada, X.get(0));
                 if (!listaDerivacoes.isEmpty()) {
+                    if(listaDerivacoes.get(0).getCodigo() == 999){
+                        Token descricaoPalavra = br.com.unesc.compilador.services.Gramatica.getInstance().getTokenByCode(entrada.getCodigo());
+                        throw new Exception("A derivação na linha: " + entrada.getLinha() + "  - ["+ X.get(0).getCodigo() + "," + entrada.getCodigo()  + "] - '" + X.get(0).getPalavra() + "," + descricaoPalavra.getPalavra() + "' não existe na tabela de Parsing");
+                    }
                     X.remove(0);
                     if (!X.isEmpty()) {
                         for(Token prod: X){

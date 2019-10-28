@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="948c4b29-2f8f-4330-8800-b1786c3d62b8" name="Default Changelist" comment="" />
+    <list default="true" id="948c4b29-2f8f-4330-8800-b1786c3d62b8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/analisadorSintatico/ClassificadorSintatico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/analisadorSintatico/ClassificadorSintatico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/utilidades/TabelaParsing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/utilidades/TabelaParsing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaParsing.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,20 +109,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="X.get(0)" language="JAVA" />
