@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="948c4b29-2f8f-4330-8800-b1786c3d62b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaDeSimbolos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/analisadorSintatico/ClassificadorSintatico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/analisadorSintatico/ClassificadorSintatico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/Compilador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/Compilador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$14.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/analisadorLexico/Token.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/utilidades/TabelaParsing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/utilidades/TabelaParsing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/analisadorSintatico/ClassificadorSintatico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/Compilador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/Compilador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/ClassificadorLexico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/analisadorLexico/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaParsing.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -111,8 +109,7 @@
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="Application">
-        <watch expression="X.get(0)" language="JAVA" />
-        <watch expression="entrada" language="JAVA" />
+        <watch expression="tabelaDeSimbolos" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
