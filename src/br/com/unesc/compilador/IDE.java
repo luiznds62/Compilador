@@ -383,6 +383,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
                 System.out.println(ex);
                 Date dataAtual = new Date();
                 txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - " + ex + "\n"));
+                return;
             }
             dadosLexico.forEach(it -> {
                 modelLexico.addRow(new Object[]{it.getCodigo(), it.getPalavra()});
@@ -394,6 +395,7 @@ JOptionPane.showMessageDialog(null, "Desenvolvido por Luiz Henrique Naspolini - 
             Date dataAtual = new Date();
             txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador léxico executado com sucesso!\n"));
             txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador sintático executado com sucesso!\n"));
+            txaConsole.setText(txaConsole.getText().concat(dataAtual.toString()).concat(" - Analisador semântico executado com sucesso!\n"));
         } catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }

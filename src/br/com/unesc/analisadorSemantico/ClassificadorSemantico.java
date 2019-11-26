@@ -13,13 +13,28 @@ import src.br.com.unesc.utilidades.TabelaDeSimbolos;
 public class ClassificadorSemantico {
     List<TabelaDeSimbolos> tabelaDeSimbolos = new ArrayList<>();
 
-    public TabelaDeSimbolos buscaItemNaTabela(Token tokenVerificar, Integer nivel) throws Exception {
+    public TabelaDeSimbolos buscaItemNaTabela(Token tokenBusca, Integer nivel) throws Exception {
+        TabelaDeSimbolos tab = new TabelaDeSimbolos();
+        for (TabelaDeSimbolos it : tabelaDeSimbolos) {
+            if (it.getNome().toUpperCase().equals(tokenBusca.getPalavra().toUpperCase()) && it.getNivel() == nivel) {
+                tab = it;
+            }
+        }
+
+        if (tab.getNome().equals("")) {
+            throw new Exception("Identificador não declarado: " + tokenBusca.getPalavra());
+        }
+
+        return tab;
+    }
+
+    public TabelaDeSimbolos verificaSeItemExiste(Token tokenVerificar, Integer nivel) throws Exception {
         List<TabelaDeSimbolos> tab = new ArrayList<>();
-        if(nivel == 0) {
+        if (nivel == 0) {
             tab = tabelaDeSimbolos.stream()
                     .filter(item -> item.getNome().toUpperCase().equals(tokenVerificar.getPalavra().toUpperCase()) && item.getNivel() == nivel)
                     .collect(Collectors.toList());
-        }else{
+        } else {
             tab = tabelaDeSimbolos.stream()
                     .filter(item -> item.getNome().toUpperCase().equals(tokenVerificar.getPalavra().toUpperCase()))
                     .collect(Collectors.toList());
@@ -32,7 +47,7 @@ public class ClassificadorSemantico {
     }
 
     public void verificaSePodeInserir(TabelaDeSimbolos itemToAdd, Integer nivel) throws Exception {
-        List<TabelaDeSimbolos> jaExiste = tabelaDeSimbolos.stream()
+            List<TabelaDeSimbolos> jaExiste = tabelaDeSimbolos.stream()
                 .filter(item -> item.getNome().toUpperCase().equals(itemToAdd.getNome().toUpperCase()) && item.getNivel() == nivel)
                 .collect(Collectors.toList());
 
@@ -70,15 +85,49 @@ public class ClassificadorSemantico {
             if (X.get(0).getCodigo() < 52) {
                 if (X.get(0).getCodigo() == entrada.getCodigo()) {
 
+                    //Verifica saída da procedure
+                    if (nivel == 1 && entrada.getCodigo() == 7) {
+                        nivel = 0;
+                        removeTodosPorNivel();
+                    }
+
                     //Verifica entrada em procedure
                     if (entrada.getCodigo() == 5) {
                         nivel = 1;
                     }
 
-                    //Verifica saída da procedure
-                    if (nivel == 1 && entrada.getCodigo() == 7) {
-                        nivel = 0;
-                        removeTodosPorNivel();
+                    //Verifica chamada de procedure
+                    if (entrada.getCodigo() == 11) {
+                        Boolean entrouNaProcedure = false;
+                        Token entradaSemantica = lexico.get(1);
+                        List<TabelaDeSimbolos> listaDeParametros = new ArrayList<>();
+                        TabelaDeSimbolos procedure = new TabelaDeSimbolos();
+                        int i = 1;
+                        while (entradaSemantica.getCodigo() != 37) {
+                            if(entradaSemantica.getCodigo() == 25 && listaDeParametros.isEmpty()){
+                                procedure = buscaItemNaTabela(entradaSemantica,0);
+                                for(int j = 0; j < tabelaDeSimbolos.size(); j++){
+                                    if(tabelaDeSimbolos.get(j).getNome().equals(procedure.getNome())){
+                                        j++;
+                                        listaDeParametros.add(tabelaDeSimbolos.get(j));
+                                    }
+                                }
+                            }
+                            i++;
+                            entradaSemantica = lexico.get(i);
+                            if(entradaSemantica.getCodigo() == 25 && !listaDeParametros.isEmpty()){
+                                TabelaDeSimbolos parametro = buscaItemNaTabela(entradaSemantica,0);
+                                Boolean encontrouParametro = false;
+                                for(int j = 0; j < listaDeParametros.size(); j++){
+                                    if(parametro.getTipo().equals(listaDeParametros.get(j).getTipo())){
+                                        encontrouParametro = true;
+                                    }
+                                }
+                                if(!encontrouParametro){
+                                    throw new Exception("Parâmetro: " + parametro.getNome() + " inválido para procedure: " + procedure.getNome());
+                                }
+                            }
+                        }
                     }
 
                     //Verificação de Procedures
@@ -93,7 +142,7 @@ public class ClassificadorSemantico {
                                 tabela.setTipo("LITERAL");
                                 tabela.setNivel(0);
                                 tabela.setLinha(entradaSemantica.getLinha().toString());
-                                verificaSePodeInserir(tabela, nivel);
+                                verificaSePodeInserir(tabela, 0);
                                 tabelaDeSimbolos.add(tabela);
                             }
                             if (entradaSemantica.getCodigo() == 36) {
@@ -106,7 +155,7 @@ public class ClassificadorSemantico {
                                     tabela.setNome(entradaSemantica.getPalavra());
                                     tabela.setCategoria("PARAMETRO");
                                     tabela.setTipo(tipo);
-                                    tabela.setNivel(1);
+                                    tabela.setNivel(0);
                                     tabela.setLinha(entradaSemantica.getLinha().toString());
                                     verificaSePodeInserir(tabela, nivel);
                                     ;
@@ -148,7 +197,7 @@ public class ClassificadorSemantico {
                                 TabelaDeSimbolos tabela = new TabelaDeSimbolos();
                                 tabela.setNome(entradaSemantica.getPalavra());
                                 tabela.setCategoria("CONST");
-                                tabela.setTipo("INTEIRO");
+                                tabela.setTipo("INTEGER");
                                 tabela.setNivel(nivel);
                                 tabela.setLinha(entradaSemantica.getLinha().toString());
                                 verificaSePodeInserir(tabela, nivel);
@@ -218,7 +267,7 @@ public class ClassificadorSemantico {
 
                         while (entradaSemantica.getCodigo() != 7) {
                             if (entradaSemantica.getCodigo() == 25) {
-                                TabelaDeSimbolos tab = buscaItemNaTabela(entradaSemantica, nivel);
+                                TabelaDeSimbolos tab = verificaSeItemExiste(entradaSemantica, nivel);
                                 i++;
                                 entradaSemantica = lexico.get(i);
                                 /*if (entradaSemantica.getCodigo() == 38) {

@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="948c4b29-2f8f-4330-8800-b1786c3d62b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/unesc/utilidades/TabelaDeSimbolos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/Compilador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/Compilador.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$13.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE$14.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/br/com/unesc/compilador/IDE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/Compilador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/Compilador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/unesc/compilador/IDE.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -107,6 +105,15 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/unesc/analisadorSemantico/ClassificadorSemantico.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="tabelaDeSimbolos" language="JAVA" />
